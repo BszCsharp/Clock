@@ -7,23 +7,119 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Media;
 
 namespace ClockApp
 {
     public partial class FormStart : Form
     {
         Clock clock = null;
+        DateTime alarmTime = new DateTime();
+        SoundPlayer player = null;
         public FormStart()
         {
             InitializeComponent();
             clock = new Clock();
             clock.LabelTime = this.labelTime;
-            clock.LabelSeconds = this.labelSeconds; 
+            clock.LabelSeconds = this.labelSeconds;
+            clock.Modus = Mode.Clock;
+            clock.onAlarm += Alarm;
          
             clock.SetOn();
             labelDay.Text = clock.Date.Day.ToString("D2");
             labelMonth.Text = clock.Date.Month.ToString("D2");
+            player = new SoundPlayer("wecker.wav");
         }
+
+        private void buttonMode_Click(object sender, EventArgs e)
+        {
+            if (clock.Modus == Mode.Clock)
+            {
+                clock.Modus = Mode.Alarm;
+                labelSeconds.Visible = false;
+                labelMode.Text = Mode.Alarm.ToString();
+                labelTime.Text = clock.Alarm.Hour.ToString("D2") + ":" + clock.Alarm.Minute.ToString("D2");
+                
+
+            }
+            else
+            {
+                clock.Modus = Mode.Clock; 
+                labelSeconds.Visible = true;
+                labelMode.Text = Mode.Clock.ToString();
+            }
+        }
+
+        private void buttonPlus_Click(object sender, EventArgs e)
+        {
+            if(clock.Modus == Mode.Alarm)
+            {
+                clock.Alarm =  clock.Alarm.AddHours(1.00);
+                String zeit = clock.Alarm.Hour.ToString("D2") + ":" + clock.Alarm.Minute.ToString("D2");
+                labelTime.Text = zeit;
+            }
+        }
+
+        private void buttonMinus_Click(object sender, EventArgs e)
+        {
+            if (clock.Modus == Mode.Alarm)
+            {
+                clock.Alarm = clock.Alarm.AddHours(-1.00);
+                String zeit = clock.Alarm.Hour.ToString("D2") + ":" + clock.Alarm.Minute.ToString("D2");
+                labelTime.Text = zeit;
+            }
+        }
+
+        private void buttonMinPlus_MouseDown(object sender, MouseEventArgs e)
+        {
+            timer1.Enabled = true;
+        }
+
+        private void buttonMinPlus_Click(object sender, EventArgs e)
+        {
+            timer1.Enabled = false;
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (clock.Modus == Mode.Alarm)
+            {
+                clock.Alarm = clock.Alarm.AddMinutes(1.00);
+                String zeit = clock.Alarm.Hour.ToString("D2") + ":" + clock.Alarm.Minute.ToString("D2");
+                labelTime.Text = zeit;
+            }
+        }
+
+        private void buttonMinPlus_MouseUp(object sender, MouseEventArgs e)
+        {
+            timer1.Enabled = false;
+        }
+
+        private void buttonAlarm_Click(object sender, EventArgs e)
+        {
+            if(clock.Status == State.Off)
+            {
+                clock.Status = State.On;
+            }
+            else
+            {
+                clock.Status = State.Off;
+            }
+            labelOnOff.Text = clock.Status.ToString();
+
+        }
+        private void Alarm(object sender,EventArgs e)
+        {
+            labelOnOff.Text = clock.Status.ToString();
+           // MessageBox.Show("Alarm");
+            player.Play();
+        }
+
+        private void buttonOnOff_Click(object sender, EventArgs e)
+        {
+            player.Stop();
+        }
+
 
    
     }
