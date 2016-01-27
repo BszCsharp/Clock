@@ -28,10 +28,11 @@ namespace ClockApp
             clock.SetOn();
             labelDay.Text = clock.Date.Day.ToString("D2");
             labelMonth.Text = clock.Date.Month.ToString("D2");
-            //System.Reflection.Assembly a = System.Reflection.Assembly.GetExecutingAssembly();
-            //System.IO.Stream s = a.GetManifestResourceStream("ClockApp.wecker.wav");
-            player = new SoundPlayer("wecker.wav");
-            //player.Play();
+            System.Reflection.Assembly a = System.Reflection.Assembly.GetExecutingAssembly();
+            System.IO.Stream s = a.GetManifestResourceStream("ClockApp.Resources.wecker.wav");
+            //player = new SoundPlayer("wecker.wav");
+            player = new SoundPlayer(s);
+            player.Play();
         }
 
         private void buttonMode_Click(object sender, EventArgs e)
