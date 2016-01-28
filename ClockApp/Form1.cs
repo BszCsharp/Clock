@@ -34,7 +34,7 @@ namespace ClockApp
             System.IO.Stream s = a.GetManifestResourceStream("ClockApp.Resources.wecker.wav");
             player = new SoundPlayer("wecker.wav");
             //player = new SoundPlayer(s);
-            player.Play();
+            //player.Play();
         }
 
         private void buttonMode_Click(object sender, EventArgs e)
@@ -132,9 +132,9 @@ namespace ClockApp
         {
             if(buttonOnOff.BackgroundImage == img1)
             {
-                buttonOnOff.BackgroundImage = img1;
+                buttonOnOff.BackgroundImage = img2;
             }
-            else buttonOnOff.BackgroundImage = img2;
+            else buttonOnOff.BackgroundImage = img1;
         }
 
 
