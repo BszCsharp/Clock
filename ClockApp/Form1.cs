@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Media;
+using System.IO;
 
 namespace ClockApp
 {
@@ -31,9 +32,11 @@ namespace ClockApp
             labelDay.Text = clock.Date.Day.ToString("D2");
             labelMonth.Text = clock.Date.Month.ToString("D2");
             System.Reflection.Assembly a = System.Reflection.Assembly.GetExecutingAssembly();
-            System.IO.Stream s = a.GetManifestResourceStream("ClockApp.Resources.wecker.wav");
-            player = new SoundPlayer("wecker.wav");
-            //player = new SoundPlayer(s);
+            //global::ClockApp.Properties.Resources.clock;
+            UnmanagedMemoryStream s = Properties.Resources.wecker;
+            //System.IO.Stream s = a.GetManifestResourceStream("ClockApp.Resources.wecker.wav");
+            //player = new SoundPlayer("wecker.wav");
+            player = new SoundPlayer(s);
             //player.Play();
         }
 
@@ -45,8 +48,6 @@ namespace ClockApp
                 labelSeconds.Visible = false;
                 labelMode.Text = Mode.Alarm.ToString();
                 labelTime.Text = clock.Alarm.Hour.ToString("D2") + ":" + clock.Alarm.Minute.ToString("D2");
-                
-
             }
             else
             {
