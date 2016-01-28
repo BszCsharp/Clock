@@ -30,8 +30,8 @@ namespace ClockApp
             labelMonth.Text = clock.Date.Month.ToString("D2");
             System.Reflection.Assembly a = System.Reflection.Assembly.GetExecutingAssembly();
             System.IO.Stream s = a.GetManifestResourceStream("ClockApp.Resources.wecker.wav");
-            //player = new SoundPlayer("wecker.wav");
-            player = new SoundPlayer(s);
+            player = new SoundPlayer("wecker.wav");
+            //player = new SoundPlayer(s);
             player.Play();
         }
 
