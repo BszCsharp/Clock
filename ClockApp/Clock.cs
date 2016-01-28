@@ -73,8 +73,7 @@ namespace ClockApp
             if(this.Time >= this.Alarm && this.Status == State.On)
             {
                 this.Status = State.Off;
-                if (onAlarm != null) onAlarm(this, new EventArgs());
-                
+                if (onAlarm != null) onAlarm(this, new EventArgs());            
             }
         }
         private Label labelTime;
