@@ -16,6 +16,8 @@ namespace ClockApp
         Clock clock = null;
         DateTime alarmTime = new DateTime();
         SoundPlayer player = null;
+        Image img1 = Image.FromFile("off.png");
+        Image img2 = Image.FromFile("off2.png");
         public FormStart()
         {
             InitializeComponent();
@@ -117,11 +119,22 @@ namespace ClockApp
             labelOnOff.Text = clock.Status.ToString();
            // MessageBox.Show("Alarm");
             player.Play();
+            timerOnOff.Enabled = true;
         }
 
         private void buttonOnOff_Click(object sender, EventArgs e)
         {
             player.Stop();
+            timerOnOff.Enabled = false;
+        }
+
+        private void timerOnOff_Tick(object sender, EventArgs e)
+        {
+            if(buttonOnOff.BackgroundImage == img1)
+            {
+                buttonOnOff.BackgroundImage = img1;
+            }
+            else buttonOnOff.BackgroundImage = img2;
         }
 
 
