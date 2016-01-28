@@ -49,7 +49,7 @@ namespace ClockApp
 
         public DateTime Alarm
         {
-            get { return alarm; }
+            get { return  alarm; }
             set { alarm = value; }
         }
         public void SetOn()
