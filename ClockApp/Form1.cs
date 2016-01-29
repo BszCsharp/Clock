@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Media;
+using System.IO;
 
 namespace ClockApp
 {
@@ -16,6 +17,8 @@ namespace ClockApp
         Clock clock = null;
         DateTime alarmTime = new DateTime();
         SoundPlayer player = null;
+        Image img1 = Image.FromFile("off.png");
+        Image img2 = Image.FromFile("off2.png");
         public FormStart()
         {
             InitializeComponent();
@@ -29,10 +32,12 @@ namespace ClockApp
             labelDay.Text = clock.Date.Day.ToString("D2");
             labelMonth.Text = clock.Date.Month.ToString("D2");
             System.Reflection.Assembly a = System.Reflection.Assembly.GetExecutingAssembly();
-            System.IO.Stream s = a.GetManifestResourceStream("ClockApp.Resources.wecker.wav");
-            player = new SoundPlayer("wecker.wav");
-            //player = new SoundPlayer(s);
-            player.Play();
+            //global::ClockApp.Properties.Resources.clock;
+            UnmanagedMemoryStream s = Properties.Resources.wecker;
+            //System.IO.Stream s = a.GetManifestResourceStream("ClockApp.Resources.wecker.wav");
+            //player = new SoundPlayer("wecker.wav");
+            player = new SoundPlayer(s);
+            //player.Play();
         }
 
         private void buttonMode_Click(object sender, EventArgs e)
@@ -43,8 +48,6 @@ namespace ClockApp
                 labelSeconds.Visible = false;
                 labelMode.Text = Mode.Alarm.ToString();
                 labelTime.Text = clock.Alarm.Hour.ToString("D2") + ":" + clock.Alarm.Minute.ToString("D2");
-                
-
             }
             else
             {
@@ -117,11 +120,22 @@ namespace ClockApp
             labelOnOff.Text = clock.Status.ToString();
            // MessageBox.Show("Alarm");
             player.Play();
+            timerOnOff.Enabled = true;
         }
 
         private void buttonOnOff_Click(object sender, EventArgs e)
         {
             player.Stop();
+            timerOnOff.Enabled = false;
+        }
+
+        private void timerOnOff_Tick(object sender, EventArgs e)
+        {
+            if(buttonOnOff.BackgroundImage == img1)
+            {
+                buttonOnOff.BackgroundImage = img2;
+            }
+            else buttonOnOff.BackgroundImage = img1;
         }
 
 

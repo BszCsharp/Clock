@@ -92,7 +92,10 @@
     <None Include="Resources\off.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="bin\Debug\off.png" />
+    <None Include="bin\Debug\off2.png" />
     <Content Include="bin\Debug\wecker.wav" />
+    <None Include="Resources\off2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

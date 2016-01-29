@@ -46,6 +46,7 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.labelOnOff = new System.Windows.Forms.Label();
             this.buttonOnOff = new System.Windows.Forms.Button();
+            this.timerOnOff = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // buttonMode
@@ -218,6 +219,11 @@
             this.buttonOnOff.UseVisualStyleBackColor = true;
             this.buttonOnOff.Click += new System.EventHandler(this.buttonOnOff_Click);
             // 
+            // timerOnOff
+            // 
+            this.timerOnOff.Interval = 1000;
+            this.timerOnOff.Tick += new System.EventHandler(this.timerOnOff_Tick);
+            // 
             // FormStart
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -263,6 +269,7 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label labelOnOff;
         private System.Windows.Forms.Button buttonOnOff;
+        private System.Windows.Forms.Timer timerOnOff;
     }
 }
 
